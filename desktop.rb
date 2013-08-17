@@ -1,32 +1,38 @@
 module Kyukon
   class Desktop
 
-    def initialize(ignored_workspaces = [])
-      @workspaces = determine_workspaces(ignored_workspaces)
-      @cursor = 0
+    def initialize
+      @workspaces = Queue.new
+      start
     end
 
-    def determine_workspaces(ignored_workspaces)
-      (`wmctrl -d`.split(/\n/).map { |line| line.split(/\s/).first }) - ignored_workspaces
+    def start
+      Thread.new do
+        loop do
+          workspace = @workspaces.pop
+          workspace.focus
+          workspace.resume
+        end
+      end
     end
 
-    def next
-      advance_cursor(1)
-      switch_to_cursor
-    end
-
-    def prev
-      advance_cursor(-1)
-      switch_to_cursor
-    end
-
-    def advance_cursor(by)
-      @cursor = (@cursor + by) % @workspaces.count
-    end
-
-    def switch_to_cursor
-      `wmctrl -s #{@workspaces[@cursor]}`
+    def <<(workspace)
+      @workspaces << workspace
     end
 
   end
+
+
+  class Workspace < ImmutableStruct.new(:id, :board)
+
+    def focus
+      `wmctrl -s #{id}`
+    end
+
+    def resume
+      board.resume
+    end
+
+  end
+
 end

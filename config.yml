@@ -1,5 +1,9 @@
 # The delay option is the number of seconds to wait between transitions.
-delay: 5
+delay: 10
 
 # The indicies of any workspaces which should be ignored.
-ignore_workspaces: [0, 4]
+boards:
+- PrintNumber
+- IgnoredBoard
+- GoogleCalendar
+- IgnoredBoard

@@ -1,10 +1,6 @@
 module Kyukon
   class Daemon
 
-    delegate  :next, :prev,
-              :to => :@desktop
-
-
     def initialize
       configure
     end
@@ -12,16 +8,28 @@ module Kyukon
 
     def configure
       @config = YAML.load_file('config.yml')
-      @desktop = Desktop.new([*@config['ignore_workspaces']].map(&:to_s))
+      @boards = initialize_boards(@config)
+      @dashboard = Dashboard.new(@boards)
+    end
+
+
+    def initialize_boards(config)
+      config['boards'].map do |board_name|
+        begin
+          Kyukon.const_get(board_name).new
+        rescue Exception => exc
+          IgnoredBoard.new
+        end
+      end
     end
 
 
     def run
       # First argument, 'nochdir', keeps us in the current working directory.
-      Process.daemon(true)
+      # Process.daemon(true)
       loop do
         self.wait
-        self.next
+        @dashboard.next
       end
     end
 
@@ -29,10 +37,6 @@ module Kyukon
     def wait
       sleep @config['delay']
     end
-
-
-private #####################################################################
-
 
   end
 end

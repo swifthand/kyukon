@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/swifthand/x_do.git
+  revision: ff43fa555d1c497c0516bf12353ac64860faf1e6
+  specs:
+    x_do (0.1.2)
+      ffi (>= 1.0.0)
+      ffi (>= 1.0.0)
+
 GEM
   remote: http://rubygems.org/
   remote: http://gems.github.com/
@@ -9,6 +17,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     atomic (1.1.13)
+    ffi (1.9.0)
     i18n (0.6.5)
     immutable_struct (1.1.1)
     minitest (4.7.5)
@@ -25,3 +34,4 @@ DEPENDENCIES
   activesupport
   immutable_struct
   require_all
+  x_do!
