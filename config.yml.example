@@ -1,0 +1,20 @@
+# The delay option is the number of seconds to wait between transitions.
+delay: 10
+
+# The indicies of any workspaces which should be ignored.
+boards:
+- class: GoogleCalendar
+  args:
+- class: IgnoredBoard
+  args:
+- class: ChromiumBrowser
+  args:
+  - 'https://www.example.com/todoapp/list42'
+- class: ChromiumBrowser
+  args:
+  - 'http://www.weather.com/weather/today/Houston+TX+77006'
+- class: ImageViewer
+  args:
+  - /home/swifthand/images/roflcopter.jpg
+# - class: PrintNumber
+#   args:

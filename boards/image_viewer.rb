@@ -1,10 +1,10 @@
 module Kyukon
-  class ChromiumBrowser < Board
+  class ImageViewer < Board
 
-    attr_reader :xdo, :url
+    attr_reader :xdo, :image_path
 
-    def initialize(url)
-      @url = url
+    def initialize(image_path)
+      @image_path = image_path
       @xdo = XDo.new
     end
 
@@ -16,15 +16,19 @@ module Kyukon
 
     def setup
       return false if initialized?
-      `#{chromium_command} --new-window #{url}`
+      Process.spawn("#{viewer_command} #{options} #{image_path}")
       sleep boot_delay
       full_screen
       @initialized = true
     end
 
+    def options
+      ""
+    end
 
-    def chromium_command
-      "chromium-browser"
+
+    def viewer_command
+      "viewnior"
     end
 
 

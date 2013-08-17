@@ -8,15 +8,15 @@ module Kyukon
 
     def configure
       @config = YAML.load_file('config.yml')
-      @boards = initialize_boards(@config)
+      @boards = initialize_boards(@config['boards'])
       @dashboard = Dashboard.new(@boards)
     end
 
 
-    def initialize_boards(config)
-      config['boards'].map do |board_name|
+    def initialize_boards(boards_config)
+      boards_config.map do |board_conf|
         begin
-          Kyukon.const_get(board_name).new
+          Kyukon.const_get(board_conf['class']).new(*board_conf['args'])
         rescue Exception => exc
           IgnoredBoard.new
         end

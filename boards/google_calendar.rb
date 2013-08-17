@@ -1,7 +1,7 @@
 module Kyukon
   class GoogleCalendar < ChromiumBrowser
 
-    TARGET_URL = "https://www.google.com/calendar"
+    CALENDAR_URL = "https://www.google.com/calendar"
     MOUSEWHEEL_DOWN = 5
     NUM_SCROLLS = 7
 
@@ -9,12 +9,12 @@ module Kyukon
 
     def initialize
       @last_adjust_time = 1.year.ago
-      super
+      super(CALENDAR_URL)
     end
 
 
     def resume
-      setup(TARGET_URL)
+      setup
       adjust_ui if should_adjust_ui?
     end
 

@@ -1,9 +1,0 @@
-# The delay option is the number of seconds to wait between transitions.
-delay: 10
-
-# The indicies of any workspaces which should be ignored.
-boards:
-- PrintNumber
-- IgnoredBoard
-- GoogleCalendar
-- IgnoredBoard
